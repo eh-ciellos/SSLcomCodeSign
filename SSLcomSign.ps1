@@ -34,8 +34,12 @@ $plainTotp = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($totpPtr)
 # Use $plainPassword and $plainTotp securely within your script only when needed.
 
 # AL:Go and BCContainerHelper helper libraries import
-Write-Host "Importing AL:Go and BCContainerHelper helper libraries..."
-. (Join-Path -Path $PSScriptRoot -ChildPath "..\AL-Go-Helper.ps1" -Resolve)
+# Write-Host "Importing AL:Go and BCContainerHelper helper libraries..."
+# . (Join-Path -Path $PSScriptRoot -ChildPath "..\AL-Go-Helper.ps1" -Resolve)
+# DownloadAndImportBcContainerHelper
+$basePath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath "..\..\_actions\microsoft\AL-Go-Actions"
+$versionFolder = Get-ChildItem -Path $basePath -Directory | Sort-Object Name -Descending | Select-Object -First 1
+. (Join-Path -Path $versionFolder.FullName -ChildPath "AL-Go-Helper.ps1" -Resolve)
 DownloadAndImportBcContainerHelper
 
 Write-Host "=========== Signing $appFile process ===========" -ForegroundColor Yellow
